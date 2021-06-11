@@ -1,5 +1,8 @@
 html, body{
-	width: 100px;
+	width: 400px;
+}
+#success-text {
+	font-size: 8pt;
 }
 .hidden {
 	display: none;

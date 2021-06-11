@@ -1,6 +1,6 @@
 {
     "manifest_version": 2,
-    "name": "EOFIS",
+    "name": "EOFIS Noted",
     "version": "0.1",
     "description": "Adds an entry to save information in EOFIS in the right-click menu.",
     "icons": {
@@ -11,16 +11,23 @@
     },
     "permissions" : [
         "contextMenus",
-        "activeTab"
+        "activeTab",
+        "nativeMessaging"
     ],
     "browser_action": {
-        "default_icon": "icons/logo-32.png",
+        "default_icon": "icons/logo.svg",
         "default_title": "Send to EOFIS",
         "default_popup": "popup/modify_note.html"
     },
     "background": {
         "scripts": [
-            "eofis.js"
+            "background.js"
         ]
+    },
+    "browser_specific_settings": {
+        "gecko": {
+            "id": "eofis@eofis.ie",
+            "strict_min_version": "50.0"
+        }
     }
 }
