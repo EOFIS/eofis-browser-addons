@@ -34,19 +34,18 @@ def send_message(encoded_message):
     sys.stdout.buffer.write(encoded_message['content'])
     sys.stdout.buffer.flush()
 
-while True:
 #run = True
 #while run:
     #run=False
+while True:
     message = get_message()
     #message = '''{"text":"Native messaging enables an extension to exchange messages with a native application, installed on the user's computer. The native messaging serves the extensions without additional accesses over the web."}'''
     try:
         #mjson = json.loads(message) #TypeError, message isn't json
-        selected = message['text']
+        selected = message['content']
         send_message(encode_message(f"MESSAGE RECEIVED","status"))
-        #send_message(encode_message(f"MESSAGE SUPPLEMENTAL"))
         # f"python -m arch.linux.cli -t 'Don Quixote was a very strange man who tilted at windmills' -m 'vh/t5_sm' -s"
-        method = "tr_cq"
+        method = "vh/t5_sm"#"tr_cq"
         notes = subprocess.run(["python","-m","arch.linux.cli","-t",f"{selected}", "-m", method, "-s"], stdout=subprocess.PIPE, cwd="../../../../../").stdout.decode('utf-8')
         #notes = json.loads(notes)
 
