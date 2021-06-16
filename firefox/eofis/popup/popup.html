@@ -2,12 +2,18 @@
 <html>
 	<head>
 		<meta charset="utf-8"/>
+		<link rel="stylesheet" href="bulma.min.css"/>
 		<link rel="stylesheet" href="style.css"/>
+		<script src="bson.bundle.js"></script>
 	</head>
 	<body>
 		<div id="success-content">
-			<div class="note">Note saved</div>
-			<div id="selection-text"></div>
+			<div class="hidden">Status: <span id="status"></span></div>
+			<div>Source Selection: <span id="selection"></span></div>
+			<h3 class="title is-4">Quiz Questions</h3>
+			<ol id="result">
+			</ol>
+		</div>
 		</div>
 		<div id="error-content" class="hidden">
 			<p>Can't send this note to EOFIS. Please check the FAQs to see if your problem is there (some pages don't allow the extension to work). Otherwise, please let us know and we'll try to fix it.</p>

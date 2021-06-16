@@ -17,7 +17,8 @@
     "browser_action": {
         "default_icon": "icons/logo.svg",
         "default_title": "Send to EOFIS",
-        "default_popup": "popup/popup.html"
+        "default_popup": "popup/popup.html",
+		"browser_style": true
     },
     "background": {
         "scripts": [

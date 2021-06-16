@@ -8,6 +8,8 @@ import json
 import sys
 import struct
 import subprocess
+import bson.json_util
+import bson
 
 sys.path.insert(0,"../../../../../")
 
@@ -47,8 +49,10 @@ while True:
         # f"python -m arch.linux.cli -t 'Don Quixote was a very strange man who tilted at windmills' -m 'vh/t5_sm' -s"
         method = "vh/t5_sm"#"tr_cq"
         notes = subprocess.run(["python","-m","arch.linux.cli","-t",f"{selected}", "-m", method, "-s"], stdout=subprocess.PIPE, cwd="../../../../../").stdout.decode('utf-8')
-        #notes = json.loads(notes)
+        # notes is JSON-serialised BSON
 
+        #notes = bson.json_util.loads(notes)
+        #notesnotes = bson.encode(notes)
         send_message(encode_message(notes, "result"))
     except KeyError as e:
         send_message(encode_message(f"Could not find key ``text'' in received object: {e}"))

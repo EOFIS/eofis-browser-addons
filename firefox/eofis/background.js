@@ -2,7 +2,7 @@ let popup = browser.runtime.getURL('popup/popup.html');
 let results_popup = browser.runtime.getURL("popup/results_popup.html");
 
 let _RXPopupMessages = [];
-const addMessage = (msg, queue) => queue.push(msg);
+const addMessage = (queue, msg) => queue.push(msg);
 const getMessage = (queue)      => queue.shift();
 
 var RXPopupMessages = new Proxy(_RXPopupMessages, {
@@ -21,6 +21,12 @@ var RXPopupMessages = new Proxy(_RXPopupMessages, {
 		return true;
 	}
 });
+
+function showPopup (popup) {
+	browser.browserAction.setPopup({'popup': popup});
+	browser.browserAction.openPopup();
+};
+
 
 browser.contextMenus.create({
 	id: 'eofisNoted',
@@ -48,8 +54,9 @@ const MSG_STATUS_PROCESSING = "processing";
 const MSG_STATUS_DONE = "done";
 const MSG_STATUS_ERROR = "error";
 
-const sendAppMessage =   (type, message) => eofisNative.postMessage({"type": type, "content": message});
-const sendPopupMessage = (type, message) => browser.runtime.sendMessage({"type": type, "content": message});
+const sendAppMessage   = (message) => eofisNative.postMessage(message);
+const sendPopupMessage = (message) => browser.runtime.sendMessage(message);
+function makeMsg(type, status, content) { return {"type": type, "status": status, "content" : content}; }
 
 function onMessage(source, message) {
 	switch (source)
@@ -62,6 +69,16 @@ function onMessage(source, message) {
 			else if (message.type === MSG_TYPE_RESULT) 
 			{
 				console.log(`RX RESULT: ${message.content}`);
+				sendPopupMessage(makeMsg(MSG_TYPE_RESULT, MSG_STATUS_DONE, message.content));
+
+				//addMessage(RXPopupMessages, makeMsg(MSG_TYPE_RESULT, MSG_STATUS_DONE, message.content))
+				// Only a temporary solution
+				//console.log(`Attempting to open popup ""${popup}""`);
+				//var popupTab = browser.tabs.create({url: popup});
+				//popupTab.then((tab) => {console.log("TAB CREATED");},
+				//	(error) => { console.log(`ERROR CREATING TAB: ${error}`);}
+				//);
+				//showPopup(popup);
 			}
 			else 
 			{
@@ -72,8 +89,12 @@ function onMessage(source, message) {
 			if (message.type === MSG_TYPE_STATUS)
 			{
 				if (message.status === MSG_STATUS_READY) {
-					sendPopupMessage(selectionText);
-					selectionText = "";
+					var msgNext = getMessage(RXPopupMessages);
+					if (msgNext) {
+						sendPopupMessage(msgNext);
+					} else {
+						console.log(`No messages to send for POPUP ; QUEUE end item: ${msgNext}`);
+					}
 				} 
 				else if (message.status != null && message.status === MSG_STATUS_ERROR) {
 					console.error("An error occurred while opening the EOFIS Noted popup: "+message.error);
@@ -82,7 +103,10 @@ function onMessage(source, message) {
 			}
 			break;
 		case MSG_SRC_CONTEXT_MENU:
-			sendAppMessage(message);
+			let msg = makeMsg(message['type'],message['status'],message['content']);
+			sendAppMessage(msg);
+			addMessage(RXPopupMessages, msg);
+			showPopup(popup);
 			break;
 		default:
 			console.log(`BACKGROUND.JS received msg from unknown source: ${source} : ${message}`);
@@ -101,30 +125,7 @@ browser.runtime.onMessage.addListener(message => {
 
 var selectionText
 browser.contextMenus.onClicked.addListener((info, tab) => {
-	let message = {"type": MSG_TYPE_SELECTION, "content": info.selectionText};
+	let message = makeMsg(MSG_TYPE_SELECTION,null,info.selectionText);
 	onMessage(MSG_SRC_CONTEXT_MENU, message);
-
-	/* Connectionless */
-	/*
-		var eofisAppX = browser.runtime.sendNativeMessage(
-				"eofis",
-				message);
-		eofisAppX.then((response) => {
-			if (response.type === MSG_TYPE_STATUS)
-			{
-				console.log(`RX: ${response.content}`);
-			} else if (response.type === "result") 
-			{
-				console.log(`RX RESULT: ${response.content}`);
-			} else 
-			{
-				console.log(`RX UNKNOWN RESPONSE: ${JSON.stringify(response)}`);
-			}
-		}, (error) => {
-				console.log(`ERROR: ${error}`);
-		});
-		*/
-	browser.browserAction.setPopup({'popup': popup});
-	browser.browserAction.openPopup();
 });
 
