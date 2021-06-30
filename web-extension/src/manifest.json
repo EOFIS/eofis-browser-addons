@@ -1,6 +1,6 @@
 {
   "manifest_version": 2,
-  "name": "__MSG_extName__",
+  "name": "EOFIS",
   "homepage_url": "http://localhost:8080/",
   "description": "Save now, remember forever.",
   "default_locale": "en",
@@ -24,7 +24,7 @@
   },
   "browser_action": {
     "default_popup": "popup.html",
-    "default_title": "__MSG_extName__",
+    "default_title": "EOFIS",
     "default_icon": {
       "19": "icons/19.png",
       "38": "icons/38.png"

@@ -1,22 +1,21 @@
 <template>
 	<div>
-	<h1>Popup</h1>
-  <hello-world />
+		<Popup />
 	</div>
 </template>
 
 <script>
-import HelloWorld from "@/components/HelloWorld.vue";
+import Popup from "@/components/Popup.vue";
 
 export default {
   name: "App",
-  components: { HelloWorld },
+  components: { Popup },
 };
 </script>
 
-<style>
+<style scoped>
 html {
   width: 400px;
-  height: 400px;
+  height: 200px;
 }
 </style>
