@@ -1,7 +1,7 @@
 <template>
-	<div>
-	<h1>Standalone</h1>
-  <hello-world />
+<div>
+		<h1>Standalone</h1>
+		<hello-world />
 	</div>
 </template>
 
@@ -9,7 +9,7 @@
 import HelloWorld from "@/components/HelloWorld.vue";
 
 export default {
-  name: "App",
-  components: { HelloWorld },
+	name: "App",
+	components: { HelloWorld },
 };
 </script>
