@@ -1,6 +1,10 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
+import store from "../store";
 import Home from "../views/Home.vue";
+import Register from "../views/Register.vue";
+import Login from "../views/Login.vue";
+import Notes from "../views/Notes.vue";
 
 Vue.use(VueRouter);
 
@@ -10,6 +14,24 @@ const routes = [
     name: "Home",
     component: Home,
   },
+	{
+		path: "/register",
+		name: "Register",
+		component: Register,
+		meta: { guest: true }
+	},
+	{
+		path: "/login",
+		name: "Login",
+		component: Login,
+		meta: { guest: true }
+	},
+	{
+		path: "/notes",
+		name: Notes,
+		component: Notes,
+		meta: { requiresAuth: true }
+	},
   {
     path: "/about",
     name: "About",
@@ -22,7 +44,31 @@ const routes = [
 ];
 
 const router = new VueRouter({
+	mode: 'history',
+	base: process.env.BASE_URL,
   routes,
+});
+router.beforeEach((to, from, next) => {
+	if (to.matched.some(record => record.meta.requiresAuth)) {
+		if (store.getters.isAuth) {
+			next();
+			return;
+		}
+		next("/login");
+	} else {
+		next();
+	}
+});
+router.beforeEach((to, from, next) => {
+	if (to.matched.some(record => record.meta.guest)) {
+		if (store.getters.isAuth) {
+			next("/notes");
+			return;
+		}
+		next();
+	} else {
+		next();
+	}
 });
 
 export default router;
