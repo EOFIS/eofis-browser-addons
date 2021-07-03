@@ -7,7 +7,7 @@
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
     "serve": "vue-cli-service serve",
-    "css-build": "node-sass --omit-source-map-url public/main.scss public/main.css",
+    "css-build": "node-sass --omit-source-map-url src/assets/main.scss public/main.css",
     "css-watch": "npm run css-build -- --watch"
   },
   "dependencies": {

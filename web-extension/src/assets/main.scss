@@ -14,7 +14,7 @@ $beige-light: #D0D1CD;
 $beige-lighter: #EFF0EB;
 
 
-@import "../node_modules/bulma/sass/utilities/initial-variables.sass";
+@import "../../node_modules/bulma/sass/utilities/initial-variables.sass";
 
 // Update Bulma's global variables
 $family-sans-serif: "Nunito", sans-serif;
@@ -27,5 +27,5 @@ $fullhd-enabled: false;
 
 
 // Import only what you need from Bulma
-/@import "../node_modules/bulma/sass/base/_all.sass";
-@import "../node_modules/bulma/sass/elements/box.sass";
+@import "../../node_modules/bulma/sass/utilities/_all.sass";
+@import "../../node_modules/bulma/sass/elements/box.sass";
