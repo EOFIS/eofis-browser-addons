@@ -7,7 +7,7 @@
 		<div class="notes" v-if="Notes">
 			<ul>
 				<li v-for="note in Notes" :key="note.id">
-					<div class="note-div">
+					<div class="box">
 						<p v-for="field in note.fields" :key="field.id">{{field}}</p>
 					</div>
 				</li>

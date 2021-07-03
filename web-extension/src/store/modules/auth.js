@@ -1,10 +1,7 @@
 import axios from "axios";
 
 const state = {
-	/* Data with default values */
-	user: null,
-	notes: null,
-	token: null
+	user: null
 };
 const actions = {
 	/* fns that commit a mutation (change state)
@@ -20,16 +17,6 @@ const actions = {
 	async logout({commit}) {
 		await axios.delete('auth/');
 		commit('logout');
-	},
-	async createNote({dispatch}, note) {
-		console.log(`Creating note ${note}`);
-		// Create new note, then show all notes
-		await axios.post('notes/', note);
-		await dispatch('getNotes');
-	},
-	async getNotes({commit}) {
-		let response = await axios.get('notes/');
-		commit('setNotes', response.data);
 	}
 };
 const mutations = {
@@ -37,21 +24,14 @@ const mutations = {
 	setUser(state, email) {
 		state.user = email
 	},
-	setNotes(state, notes) {
-		state.notes = notes
-	},
 	logout(state) {
-		state.token = null;
 		state.user = null;
-		state.notes = null;
 	}
 };
 const getters = {
 	/* Get state */
 	isAuth: state => !!state.user,
-	stateNotes: state => state.notes,
-	stateUser: state => state.user,
-	stateToken: state => state.token
+	stateUser: state => state.user
 };
 
 export default {

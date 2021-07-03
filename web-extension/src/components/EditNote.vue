@@ -25,7 +25,7 @@
 <script>
 import { mapActions } from "vuex";
 export default {
-	name: "CreateNote",
+	name: "EditNote",
 	data() {
 		return {
 			form: {

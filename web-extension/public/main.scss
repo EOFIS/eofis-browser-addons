@@ -1,0 +1,31 @@
+@charset "utf-8";
+
+
+// Set your brand colors
+$red: #eb2448;
+$peach: #ff7948;
+$blue: #82afff;
+$yellow: #fbbc05;
+$yellow-lighter: #ffd761;
+$purple: #8A4D76;
+$pink: #FA7C91;
+$brown: #757763;
+$beige-light: #D0D1CD;
+$beige-lighter: #EFF0EB;
+
+
+@import "../node_modules/bulma/sass/utilities/initial-variables.sass";
+
+// Update Bulma's global variables
+$family-sans-serif: "Nunito", sans-serif;
+$grey-dark: $brown;
+// $grey-light: $beige-light;
+$primary: $red;
+$link: $peach;
+$widescreen-enabled: false;
+$fullhd-enabled: false;
+
+
+// Import only what you need from Bulma
+/@import "../node_modules/bulma/sass/base/_all.sass";
+@import "../node_modules/bulma/sass/elements/box.sass";
