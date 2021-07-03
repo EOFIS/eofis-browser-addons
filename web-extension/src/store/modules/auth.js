@@ -14,33 +14,21 @@ const actions = {
 		await dispatch('login', User);
 	},
 	async login({commit}, User) {
-		await axios.post('auth/', User).then(response => {
-			if (response.data.token) {
-				state.token = response.data.token;
-			}
-		});
+		await axios.post('auth/', User);
 		await commit('setUser', User.get('email'));
 	},
 	async logout({commit}) {
-		let user = null;
-		commit('logout', user);
+		await axios.delete('auth/');
+		commit('logout');
 	},
 	async createNote({dispatch}, note) {
 		console.log(`Creating note ${note}`);
 		// Create new note, then show all notes
-		await axios.post('notes/', note, {
-			headers: {
-				Authorization: "Bearer " + state.token
-			}
-		});
+		await axios.post('notes/', note);
 		await dispatch('getNotes');
 	},
 	async getNotes({commit}) {
-		let response = await axios.get('notes/', {
-			headers: {
-				Authorization: "Bearer " + state.token
-			}
-		});
+		let response = await axios.get('notes/');
 		commit('setNotes', response.data);
 	}
 };
