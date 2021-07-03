@@ -3,32 +3,12 @@
 		<div v-if="User">
 			<p>Hello {{User}}</p>
 		</div>
-		<div>
-			<form @submit.prevent="submit">
-				<div>
-					<label for="nFields">How many fields:</label>
-					<input type="number" name="nFields" v-model.number="nFields"
-						min="1"/>
-				</div>
-				<div>
-					<fieldset>
-						<legend>Fields:</legend>
-						<label for="field1">Field 1:</label>
-						<input type="text" name="field1" v-model="form.field1"/>
-						<label for="field2">Field 2:</label>
-						<input type="text" name="field2" v-model="form.field2"/>
-					</fieldset>
-				</div>
-				<div>
-					<button type="submit">Submit</button>
-				</div>
-			</form>
-		</div>
+		<CreateNote/>
 		<div class="notes" v-if="Notes">
 			<ul>
 				<li v-for="note in Notes" :key="note.id">
-					<div id="note-div">
-						<p>{{note.fields}}</p>
+					<div class="note-div">
+						<p v-for="field in note.fields" :key="field.id">{{field}}</p>
 					</div>
 				</li>
 			</ul>
@@ -41,19 +21,11 @@
 
 <script>
 import { mapGetters, mapActions } from "vuex";
+import CreateNote from "@/components/CreateNote.vue";
 export default {
 	name: "Notes",
 	components: {
-
-	},
-	data() {
-		return {
-			form: {
-				field1: '',
-				field2: ''
-			},
-			nFields: 2
-		}
+		CreateNote
 	},
 	created: function () {
 		this.getNotes()
@@ -62,14 +34,7 @@ export default {
 		...mapGetters({ Notes: "stateNotes", User: "stateUser" })
 	},
 	methods: {
-		...mapActions([ "createNote", "getNotes" ]),
-		async submit() {
-			try {
-				await this.createNote(this.form);
-			} catch (error) {
-				throw "Could not create note right now.";
-			}
-		}
+		...mapActions([ "getNotes" ]),
 	}
 };
 </script>

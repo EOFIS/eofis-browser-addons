@@ -18,7 +18,7 @@
 				<button type="submit">Submit</button>
 			</form>
 		</div>
-		<p v-if="showError" id="error">Email already exists</p>
+		<p v-if="showError" id="error">An error occurred. Check your email and password.</p>
 	</div>
 </template>
 
@@ -41,9 +41,14 @@ export default {
 	methods: {
 		...mapActions(["register"]),
 		async submit(){
+			const User = new FormData();
+			User.append("email", this.form.email);
+			User.append("name", this.form.name);
+			User.append("password", this.form.password);
 			try {
-				await this.register(this.form);
-				this.$router.push("/notes");
+				await this.register(User);
+				//this.$router.push("/notes");
+				this.$router.push("/");
 				this.showError = false;
 			} catch (error) {
 				this.showError = true;

@@ -9,19 +9,13 @@ const state = {
 const actions = {
 	/* fns that commit a mutation (change state)
 	 * or dispatch (call another action) */
-	async register({dispatch}, form) {
-		await axios.post('register', form);
-		let UserForm = new FormData();
-		UserForm.append('email', form.email);
-		UserForm.append('password', form.password);
-		//await dispatch('login/', UserForm);
-		await dispatch('login/', UserForm);
+	async register({dispatch}, User) {
+		await axios.post('users/', User);
+		await dispatch('login', User);
 	},
 	async login({commit}, User) {
 		await axios.post('auth/', User).then(response => {
 			if (response.data.token) {
-				console.log(response.data.token);
-				console.log(state);
 				state.token = response.data.token;
 			}
 		});
@@ -32,8 +26,13 @@ const actions = {
 		commit('logout', user);
 	},
 	async createNote({dispatch}, note) {
+		console.log(`Creating note ${note}`);
 		// Create new note, then show all notes
-		await axios.post('notes/', note);
+		await axios.post('notes/', note, {
+			headers: {
+				Authorization: "Bearer " + state.token
+			}
+		});
 		await dispatch('getNotes');
 	},
 	async getNotes({commit}) {
