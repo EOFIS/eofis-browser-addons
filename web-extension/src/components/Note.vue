@@ -33,7 +33,7 @@
 			</span>
 		</aside>
 		{{this.note}}
-		<TagList :tags="this.note.tags"/>
+		<TagList :tags="this.note.tags" :source="note.source"/>
 		<p v-for="field in this.note.fields" :key="field.id" class="block">{{field}}</p>
 	</div>
 </template>

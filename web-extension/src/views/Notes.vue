@@ -6,9 +6,9 @@
 		<CreateNote v-if="false"/>
 		<div class="notes" v-if="Notes">
 			<div v-if="false">
-			<Note v-for="note in Notes" :key="note.id" :note="note"/>
-			</div>
 			<EditNote v-for="note in Notes" :key="note.id" :note="note"/>
+			</div>
+			<Note v-for="note in Notes" :key="note.id" :note="note"/>
 			<!--
 				<div class="box" v-for="note in Notes" :key="note.id">
 					{{note}}

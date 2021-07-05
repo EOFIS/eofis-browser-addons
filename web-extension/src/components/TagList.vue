@@ -1,6 +1,7 @@
 <template>
 	<div class="field is-grouped is-grouped-multiline">
-		<Tag v-for="tag in tags" :key="tag.id" :text="tag"/>
+		<Tag :tag="source"/>
+		<Tag v-for="tag in tags" :key="tag.id" :tag="tag"/>
 	<div class="control">
 		<input id="newTag" class="tag" v-if="editable===true" type="text" list="allTags" name="newTag" @keyup="validateNewTag" v-model="this.newTag"/>
 	</div>
@@ -20,7 +21,8 @@
 			name: "TagList",
 			props: {
 					tags: [],
-					editable: {type: Boolean, default: true}
+					source: {type: Object, required: false},
+					editable: {type: Boolean, default: false}
 				},
 			data() {
 					return {
