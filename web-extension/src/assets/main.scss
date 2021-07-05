@@ -1,5 +1,6 @@
 @charset "utf-8";
 
+@import "icons.sass";
 
 // Set your brand colors
 $red: #eb2448;
@@ -26,6 +27,15 @@ $widescreen-enabled: false;
 $fullhd-enabled: false;
 
 
-// Import only what you need from Bulma
-@import "../../node_modules/bulma/sass/utilities/_all.sass";
-@import "../../node_modules/bulma/sass/elements/box.sass";
+@import "../../node_modules/bulma/bulma.sass";
+// TODO: Import only what is needed from Bulma
+//@import "../../node_modules/bulma/sass/utilities/_all.sass";
+//@import "../../node_modules/bulma/sass/elements/box.sass";
+//@import "../../node_modules/bulma/sass/elements/_all.sass";
+//@import "../../node_modules/bulma/sass/form/_all.sass";
+//@import "../../node_modules/bulma/sass/form/tools.sass";
+//@import "../../node_modules/bulma/sass/elements/button.sass";
+
+.hidden {
+	display: none;
+}

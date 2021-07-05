@@ -11,6 +11,8 @@
     "css-watch": "npm run css-build -- --watch"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.15.3",
+    "@mdi/font": "^5.9.55",
     "bulma": "^0.9.3",
     "core-js": "^3.6.5",
     "vue": "^2.6.11",
