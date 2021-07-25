@@ -1,7 +1,0 @@
-{
-	"name": "eofis",
-	"description": "EOFIS endpoint for firefox addon",
-	"path": "/home/tor/projects/eofis/code/arch/addons/firefox/eofis/app/eofis.py",
-	"type": "stdio",
-	"allowed_extensions": [ "eofis@eofis.ie" ]
-}
