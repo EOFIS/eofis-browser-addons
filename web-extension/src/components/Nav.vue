@@ -1,5 +1,5 @@
 <template>
-	<div id="nav">
+	<div class="nav">
 		<router-link to="/">Home</router-link> | 
 		<router-link to="/notes">Notes</router-link> | 
 		<span v-if="isLoggedIn">
@@ -27,8 +27,8 @@ export default {
 }
 </script>
 
-<style scoped lang="scss">
-#nav {
+<style lang="scss">
+.nav {
 	padding: 30px;
 
 	a {

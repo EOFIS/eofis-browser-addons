@@ -1,5 +1,6 @@
 import Vue from "vue";
 import App from "./App.vue";
+import router from "../router";
 import Icon from '@/components/Icon';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faBullseye, faHeart, faEllipsisV, faTrash, faTag, faTags } from '@fortawesome/free-solid-svg-icons';
@@ -12,6 +13,7 @@ Vue.component('Icon', Icon);
 
 /* eslint-disable no-new */
 new Vue({
-  el: "#app",
-  render: (h) => h(App),
+    router,
+    el: "#app",
+    render: (h) => h(App),
 });

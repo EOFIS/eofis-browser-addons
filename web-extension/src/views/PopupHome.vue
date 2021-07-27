@@ -15,11 +15,11 @@
                 <li>First note field, whatever ...</li>
             </ul>
         </div>
-        <div>
+        <div class="note-list">
             <h3 @click="toggleExpand(2)">
                 <Icon icon="heart" text="Favourites" color="red"/>
             </h3>
-            <ul v-if="this.expanded==2" class="note-list">
+            <ul v-if="this.expanded==2">
                 <NoteLI v-for="note in notes" :note="note" :key="note._id.$oid"/>
             </ul>
         </div>
@@ -47,9 +47,17 @@
 
 <style lang="scss" scoped>
 .note-list {
-    list-style: none;
-    li {
-        padding-left: 12px;
+    h3 {
+        padding-left: 8px;
+        border-style: solid;
+        border-color: rgba(0,0,0,0.1); 
+        border-width: 0 0 1px 0;
+    }
+    ul {
+        list-style: none;
+        li {
+            padding-left: 12px;
+        }
     }
 }
 </style>
@@ -57,7 +65,7 @@
 <script>
 import NoteLI from "@/components/NoteLI.vue";
 export default {
-    name: "Popup",
+    name: "PopupHome",
     components: {
         NoteLI
     },
@@ -67,7 +75,8 @@ export default {
             // TODO: dynamically load notes
             notes: [
                 {"_id":{"$oid":"60f5e427eeea87c36ab10be4"},"_partition":"userid=60d8213840f61809edbe87ca","fields":["However, only Germany, Canada, {{0:Japan}} and {{1:Italy}} announced {{2:new domestic climate funding programmes}}.","Japan, Italy, new domestic climate funding programmes"],"tags":["A","BG","Another Tag","Auto-generated"],"source":{"title":"Bags of sausages","type":"TEST","url":""}},
-                {"_id":{"$oid":"60defac8a943042a0681556c"},"_partition":"userid=60d8213840f61809edbe87ca","fields":["Test front","Back of the test"],"source":{"type":"TEST","title":"Added during initial testing"},"tags":["FIRST tag", "Second tag"]},
+                {"_id":{"$oid":"60defac8a943042a0681556c"},"_partition":"userid=60d8213840f61809edbe87ca","fields":["Test front","Back of the test"],"source":{"type":"TEST","title":"Added during initial testing"},"tags":["FIRST tag", "Second tag"], "favourite": true},
+                {"_id":{"$oid":"60f5e427eeea87c36ab10be5"},"_partition":"userid=60d8213840f61809edbe87ca","fields":["The hope is that the Cop26 {{0:climate}} summit in Glasgow in {{1:November}} will flesh out {{2:more solid commitments}}.","climate, November, more solid commitments"],"tags":["A","BG","Another Tag","Auto-generated"],"source":{"title":"Bags of sausages","type":"TEST","url":""}}
             ],
             expanded: 2 // Index of expanded item; 0: no item expanded
         }

@@ -1,5 +1,5 @@
 <template>
-    <span class="icon-text" @click="alert(text)">
+    <span class="icon-text">
         <span class="icon">
             <fa-icon :icon="this.icon" :color="this.color"/>
         </span>
@@ -31,6 +31,10 @@ export default {
 
 <style lang="scss">
 .icon-text {
-    display: inline-block;
+    display: block;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    height: 100%;
 }
 </style>
