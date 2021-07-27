@@ -14,12 +14,10 @@ const routes = [
     {
         path: "/",
         name: "Home",
-        component: Home,
-    },
-    {
-        path: "/popup-home",
-        name: "Home",
-        component: PopupHome,
+        components: {
+            default: Home,
+            popup: PopupHome
+        }
     },
     {
         path: "/register",

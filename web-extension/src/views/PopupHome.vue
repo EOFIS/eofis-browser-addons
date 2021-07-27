@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="popup-home">
         <div>
             <button @click="showTodayQuiz" title="Do a quiz of all questions due today">Today's Quiz!</button>
             <button @click="openStandalone" style="float:right" title="Click to go to the EOFIS online app">Open in Tab</button>
