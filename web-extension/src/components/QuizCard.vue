@@ -1,10 +1,10 @@
 <template>
-    <div class="card box" @click="$event.currentTarget.classList.toggle('flipped')">
+    <div class="quiz-card box" :class="{flipped: flipped}" @click="flipped==true? flipped=false:flipped=true">
         <div class="face front">
-            {{faces[0]}}
+            {{card.fields[0]}}
         </div>
         <div class="face back">
-            {{faces[1]}}    
+            {{card.fields[1]}}
         </div>
     </div>
 </template>
@@ -13,7 +13,12 @@
 export default {
     name : "QuizCard",
     props: {
-        faces: [String]
+        card: Object
+    },
+    data() {
+        return {
+            flipped: false
+        }
     },
     methods: {
         flip: function(elem) {
@@ -29,14 +34,13 @@ export default {
 
 <style lang="scss">
 // Thanks to https://3dtransforms.desandro.com/card-flip
-.card {
+.quiz-card {
     position: relative;
-    width: 240px;
-    height: 300px;
+    //width: 240px;
+    min-height: 4em;
     cursor: pointer;
     transition: 1s ease-in-out;
     transform-style: preserve-3d;
-    border: 1px solid;
 
     &.flipped {
         transform: rotateY(0.5turn);
