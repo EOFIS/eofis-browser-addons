@@ -34,8 +34,16 @@ const routes = [
     {
         path: "/quiz",
         name: "Quiz",
-        component: Quiz,
-        meta: { requiresAuth: true }
+        components: {
+            default: Quiz,
+            popup: Quiz
+        },
+        meta: { 
+            crumbs: "/Today's Quiz"
+        }
+        /* TODO: uncomment this when quiz has been implemented and auth server back working
+            requiresAuth: true 
+        */
     },
     {
         path: "/notes",

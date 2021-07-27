@@ -1,8 +1,12 @@
 <template>
     <div class="app">
         <div class="nav">
-            <router-link to="/">Home</router-link> | 
-            <router-link to="/register">Home</router-link> | 
+            <vs-crumbs root="EOFIS">d</vs-crumbs>
+            <!--<router-link to="/"><img src="icons/32.png" alt="Popup home, eofis logo"/></router-link>-->
+                    <!--
+                    <li><a href="#">Components</a></li>
+                    <li class="is-active"><a href="#" aria-current="page">Breadcrumb</a></li>
+                    -->
             <!--
                 <span v-if="isLoggedIn">
                 <a @click="logout">Logout</a>
@@ -13,8 +17,7 @@
                 </span>
             -->
         </div>
-        <router-view style="background:blue"></router-view>
-        <router-view style="background:red" name="popup"></router-view>
+        <router-view name="popup"></router-view>
     </div>
 </template>
 

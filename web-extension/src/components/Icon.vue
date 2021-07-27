@@ -31,7 +31,7 @@ export default {
 
 <style lang="scss">
 .icon-text {
-    display: block;
+    display: inline-block;
     padding: 0;
     margin: 0;
     width: 100%;

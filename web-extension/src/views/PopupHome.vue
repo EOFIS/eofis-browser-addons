@@ -1,7 +1,7 @@
 <template>
     <div class="popup-home">
         <div>
-            <button @click="showTodayQuiz" title="Do a quiz of all questions due today">Today's Quiz!</button>
+            <router-link to="/quiz" title="Do a quiz of all questions due today">Today's Quiz!</router-link></li>
             <button @click="openStandalone" style="float:right" title="Click to go to the EOFIS online app">Open in Tab</button>
         </div>
         <div>
@@ -19,7 +19,7 @@
             <h3 @click="toggleExpand(2)">
                 <Icon icon="heart" text="Favourites" color="red"/>
             </h3>
-            <ul v-if="this.expanded==2">
+            <ul v-if="this.expanded==2" class="note-list">
                 <NoteLI v-for="note in notes" :note="note" :key="note._id.$oid"/>
             </ul>
         </div>
@@ -87,9 +87,6 @@ export default {
             browser.tabs.create({
                 "url": "/index.html"
             });
-        },
-        showTodayQuiz() {
-            console.log("Show view to do today's quiz");
         },
         validateSearchTag(e) {
             if (e.keyCode === 13) {

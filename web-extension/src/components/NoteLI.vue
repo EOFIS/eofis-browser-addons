@@ -15,9 +15,7 @@
             </div>
             <div class="note-field-wrapper" :title="this.note.fields[0]">
                 <span v-for="field in this.note.fields" :key="field.id">
-        {{isFavourite}}
-        <!--            {{field}}<br/>
-        -->
+                    {{field}}
                 </span>
             </div>
             <!-- <p v-if="expanded" v-for="field in this.note.fields" :key="field.id">{{field}}</p> -->
@@ -48,7 +46,7 @@
     background: rgba(0,0,0,0);
     &:hover {
         background: rgba(0,0,0,0.03);
-        
+
         .hover-visible {
             opacity: 1;
         }
