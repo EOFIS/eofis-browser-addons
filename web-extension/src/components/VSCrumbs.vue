@@ -3,7 +3,7 @@
         <ul class="vs-crumbs" v-if="crumbs.length" >
             <li v-for="(crumb, i) in crumbs" :key="i">
                 <router-link v-if="i < crumbs.length-1" :to="crumb.path">{{ crumb.name }}</router-link>
-                <span class=last v-else style="cursor:default">{{ crumb.name }}</span>
+                <span class="last is-active" v-else >{{ crumb.name }}</span>
             </li>
         </ul>
     </nav>
@@ -13,7 +13,7 @@
  *   Created by NxtChg (admin@nxtchg.com), 2017. License: Public Domain.
  *   =============================================================================*/
 export default {
-    name: 'vs-crumbs',
+    name: 'VSCrumbs',
     props: { root: String },
     computed: {
         crumbs: function() {
@@ -22,7 +22,7 @@ export default {
             var cs = [ { name: title, path: '/'} ]; if(!this.$route) return [];
 
             var r = (this.$route.path                        ).split('/');
-            var m = (this.$route.matched[0].meta.crumbs || '').split('/');
+            var m = [];// This gives an error ->(this.$route.matched[0].meta.crumbs || '').split('/');
 
             for(var i = 1; i < r.length; i++)
             {

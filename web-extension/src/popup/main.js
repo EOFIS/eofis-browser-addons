@@ -2,7 +2,7 @@ import Vue from "vue";
 import App from "./App.vue";
 import router from "../router";
 
-import VSCrumbs from "@/components/vs-crumbs";
+import VSCrumbs from "@/components/VSCrumbs.vue";
 import Icon from '@/components/Icon';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faBullseye, faHeart, faEllipsisV, faTrash, faTag, faTags } from '@fortawesome/free-solid-svg-icons';
@@ -12,7 +12,7 @@ Vue.component('fa-icon', FontAwesomeIcon);
 Vue.component('Icon', Icon);
 Vue.component('vs-crumbs', VSCrumbs);
 
-Vue.config.productionTip = false;
+//Vue.config.productionTip = false;
 /* eslint-disable no-new */
 new Vue({
     router: router,

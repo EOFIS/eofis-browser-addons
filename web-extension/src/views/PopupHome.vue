@@ -1,7 +1,7 @@
 <template>
     <div class="popup-home">
         <div>
-            <router-link to="/quiz" title="Do a quiz of all questions due today">Today's Quiz!</router-link></li>
+            <router-link to="/quiz" title="Do a quiz of all questions due today">Today's Quiz!</router-link>
             <button @click="openStandalone" style="float:right" title="Click to go to the EOFIS online app">Open in Tab</button>
         </div>
         <div>
