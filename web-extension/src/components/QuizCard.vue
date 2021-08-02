@@ -1,5 +1,5 @@
 <template>
-    <div class="quiz-card box" :class="{flipped: flipped}" @click="flipped==true? flipped=false:flipped=true">
+    <div class="quiz-card box" :class="{flipped: flipped}" @click="$emit('flipped');flipped==true? flipped=false:flipped=true">
         <div class="face front">
             {{card.fields[0]}}
         </div>
@@ -15,6 +15,7 @@ export default {
     props: {
         card: Object
     },
+    emits: ['flipped'],
     data() {
         return {
             flipped: false
@@ -37,9 +38,10 @@ export default {
 .quiz-card {
     position: relative;
     //width: 240px;
+    width: 100%;
     min-height: 4em;
     cursor: pointer;
-    transition: 1s ease-in-out;
+    transition: 0.5s ease-in-out;
     transform-style: preserve-3d;
 
     &.flipped {
@@ -53,7 +55,6 @@ export default {
         width: 100%;
         height: 100%;
         backface-visibility: hidden;
-        transition: 1s ease-in-out;
         background: white;
 
         &.back {
