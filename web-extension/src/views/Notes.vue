@@ -1,14 +1,19 @@
 <template>
 	<div class="notes">
+        <!--
 		<div v-if="User">
 			<p>Hello {{User}}</p>
 		</div>
+        -->
 		<CreateNote v-if="false"/>
-		<div class="notes" v-if="Notes">
+        <div class="notes" v-if="1"> <!-- v-if="Notes">-->
 			<div v-if="false">
 			<EditNote v-for="note in Notes" :key="note.id" :note="note"/>
+            <Note/>
 			</div>
+			<!--
 			<Note v-for="note in Notes" :key="note.id" :note="note"/>
+            -->
 			<!--
 				<div class="box" v-for="note in Notes" :key="note.id">
 					{{note}}
@@ -23,13 +28,14 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from "vuex";
+//import { mapGetters, mapActions } from "vuex";
 import EditNote from "@/components/EditNote.vue";
 import CreateNote from "@/components/CreateNote.vue";
 import Note from "@/components/Note.vue";
 export default {
 	name: "Notes",
-		components: { EditNote, CreateNote, Note },
+    components: { EditNote, CreateNote, Note },
+    /*
 	created: function () {
 		this.getNotes()
 	},
@@ -38,6 +44,6 @@ export default {
 	},
 	methods: {
 		...mapActions([ "getNotes" ]),
-	}
+	}*/
 };
 </script>

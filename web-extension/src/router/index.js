@@ -39,11 +39,9 @@ const routes = [
             popup: Quiz
         },
         meta: { 
-            crumbs: "/Today's Quiz"
-        }
-        /* TODO: uncomment this when quiz has been implemented and auth server back working
+            crumbs: "/Today's Quiz",
             requiresAuth: true 
-        */
+        }
     },
     {
         path: "/notes",
