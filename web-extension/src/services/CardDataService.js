@@ -5,8 +5,6 @@ var ebisu = require('ebisu-js');
 function cardRecall(card, currentDate) {
     let last_reviewed = new Date(card.last_reviewed);
     let elapsedHours = Math.floor(Math.abs(currentDate - last_reviewed) / 36e5);
-    console.log(card.model);
-    console.log(card);
     return ebisu.predictRecall(card.recall_model, elapsedHours, false); // log-probability returned, is quicker
 }
 
@@ -14,25 +12,34 @@ class CardDataService {
     getLowestRecall(amount) {
         return NoteDataService.getAll()
             .then(response => {
-                let notes = response.data;
-                let cards = (notes.map((note) => 'cards' in note ? note.cards : [])).flat(1).filter( Object );
+                let notes = response.data.filter(note => note.cards != undefined);
+                // Add tags and source info to each card
+                notes.forEach( n => {
+                    n.cards.forEach( c => {
+                        c.tags = n.tags;
+                        c.source = n.source;
+                    })});
+                let cards = notes.map((note) => note.cards).flat(1);
                 let cardsSorted = cards.sort( (a, b) => {
                     let now = Date.now();
                     return cardRecall(a, now) - cardRecall(b, now);
                 });
                 return cardsSorted.slice(0,amount);
-                //return ['A', amount, notes, notes.map];
             })
             .catch(e => {
                 console.log(e);
             });
-        //(notes.map((note) => 'cards' in note ? note.cards : [])).flat(1).filter( Object );
-        //return [];
+    }
+    getAll() {
+        return NoteDataService.getAll()
+            .then( response => {
+                let notes = response.data;
+                let cards = (notes.map((note) => 'cards' in note ? note.cards : [])).flat(1).filter( Object );
+                return cards;
+            });
+
     }
     /*
-    getAll() {
-        //return http.get("/notes/");
-    }
     get(id) {
         //return http.get(`/notes/${id}/`);
     }
@@ -46,5 +53,5 @@ class CardDataService {
         //return http.delete(`/notes/${id}`);
     }
     */
-}
+    }
 export default new CardDataService();

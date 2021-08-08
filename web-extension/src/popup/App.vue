@@ -22,7 +22,13 @@
 </template>
 
 <script>
+import { EOFISNote } from "@/popup/main.js";
 export default {
     name: "App",
+    mounted() {
+        if (!EOFISNote) {
+            EOFISNote = browser.extension.getBackgroundPage().EOFISNote;
+        }
+    }
 };
 </script>

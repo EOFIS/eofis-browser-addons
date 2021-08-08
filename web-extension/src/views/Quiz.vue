@@ -1,20 +1,36 @@
 <template>
     <div class="quiz">
+        STATE:{{$store.state}}
+        CARDS:{{this.cards}}
         <div class="card-container" v-if="!finished">
-            <div v-for="(card, card_idx) in cards" :key="card_idx" class="card fade" :class="{active: cardIdx == card_idx}">
-                <div class="quiz-header">
-                    {{card_idx+1}}/{{cards.length}}
-                </div>
-                <div class="quiz-body">
-                    <QuizCard :card="card" @flipped="flip"/>
-                </div>
-                <footer class="quiz-footer">
-                    <div class="review-buttons" :class="{active: flipped}">
-                        <a class="no" @click="reviewCard(0)">NO IDEA</a>
-                        <a class="yes" @click="reviewCard(1)">I KNEW IT!</a>
+            <span class="remaining">{{cards.length-wrong.length-right.length}}</span> | <span class="wrong">{{wrong.length}}</span> | <span class="right">{{right.length}}</span>
+
+            <QuizCard v-for="(card, card_idx) in cards" 
+                      :key="card_idx" 
+                      class="fade" 
+                      :class="{active: cardIdx == card_idx}" 
+                      :card="card" 
+                      @reviewNo="reviewCard(0)" @reviewYes="reviewCard(1)"/>
+            <!--
+            <div v-for="(card, card_idx) in cards" :key="card_idx" class="fade" :class="{active: cardIdx == card_idx}">
+            -->
+                <!--
+                    <div class="quiz-body">
+                    <QuizCard :card="card" @flipped="flip" :reviewNo="reviewCard(0)" :reviewYes="reviewCard(1)"/>
                     </div>
-                </footer>
+                    <footer class="quiz-footer">
+                    <div class="review-buttons" :class="{active: flipped}">
+                    <a class="no" @click="reviewCard(0)">NO IDEA</a>
+                    <a class="yes" @click="reviewCard(1)">I KNEW IT!</a>
+                    </div>
+                    </footer>
+                -->
+                <!--
+                <div class="tag-container">
+                    <TagList :tags="card.tags" :source="card.source"/>
+                </div>
             </div>
+                -->
         </div>
         <div class="review-container" v-if="finished">
             This quiz session: Correct: {{cards.length-wrong.length}}/{{cards.length}} ({{100*(1-wrong.length/cards.length)}} %)
@@ -38,6 +54,8 @@ export default {
             console.log(`REVIEWED CARD ${this.cardIdx} ${reviewScore}`);
             if (0 == reviewScore) {
                 this.wrong.push(this.cards[this.cardIdx]);
+            } else if (1 == reviewScore) {
+                this.right.push(this.cards[this.cardIdx]);
             }
             this.nextCard();
         },
@@ -46,10 +64,6 @@ export default {
             if (this.cardIdx >= this.cards.length) {
                 this.finished = true;
             }
-            this.flipped = false;
-        },
-        flip() {
-            this.flipped = !this.flipped;
         },
         retrieveNotes() {
             NoteDataService.getAll()
@@ -61,7 +75,7 @@ export default {
                 });
         },
         retrieveLowestRecallCards(amount) {
-            this.cards = CardDataService.getLowestRecall(amount);
+            //this.cards = CardDataService.getLowestRecall(amount);
             CardDataService.getLowestRecall(amount)
                 .then(response => {
                     this.cards = response;
@@ -86,15 +100,15 @@ export default {
      */
     mounted () {
         //this.retrieveNotes();
-        this.retrieveLowestRecallCards(4);
+        this.retrieveLowestRecallCards(20);
     },
     data () {
         return {
             cardIdx : 0,
             // TODO: below relies on $emit'ted event, could be dodgy. Find better mechanism
-            flipped : false, // is the current card flipped. 
             finished : false,
             wrong : [], // To store all the cards that were guessed wrong
+            right : [], // " right
             notes : [],
             cards : []
         }
@@ -104,20 +118,21 @@ export default {
 
 <style scoped lang="scss">
 .quiz {
-    width: 100%;
-    height: 100%;
+    width: 30rem;
+    margin: auto;
+    height: fit-content;
+    background-color: #eee;
+    box-shadow: inset 0 0 4rem 2rem white;
 }
-.card {
-    display: none;
-    &.active {
-        display: block;
-    }
+.tag-container {
+    margin: 8px;
+    width: fit-content;
 }
 .review-buttons {
     padding: 0 8px 0 8px;
     width: 100%;
     height: auto;
-    background-color: rgba(0,0,0,0.8);
+    //background-color: rgba(0,0,0,0.8);
     transition: 0.4s ease;
     & > .no {
         float: left;
@@ -142,7 +157,7 @@ export default {
     cursor: pointer;
     padding: 4px;
 
-    color: white;
+    //color: black;
 }
 .no {
     @extend .review;
@@ -165,5 +180,18 @@ export default {
 @keyframes fade {
     from { opacity: 0.4 }
     to   { opacity: 1   }
+}
+
+.right, .wrong, .remaining {
+    font-weight: bold;
+}
+.right {
+    color: green;
+}
+.wrong {
+    color: red;
+}
+.remaining {
+    color: blue;
 }
 </style>

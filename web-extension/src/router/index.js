@@ -38,7 +38,7 @@ const routes = [
             default: Quiz,
             popup: Quiz
         },
-        meta: { 
+        meta: {
             crumbs: "/Today's Quiz",
             requiresAuth: true 
         }
