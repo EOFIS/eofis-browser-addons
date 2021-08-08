@@ -12,17 +12,17 @@ module.exports = {
     },
     pages: {
         popup: {
-            template: "public/browser-extension.html",
+            template: "public/popup.html",
             entry: "./src/popup/main.js",
             title: "Popup",
         },
         options: {
-            template: "public/browser-extension.html",
+            template: "public/options.html",
             entry: "./src/options/main.js",
             title: "Options",
         },
         standalone: {
-            template: "public/browser-extension.html",
+            template: "public/standalone.html",
             entry: "./src/standalone/main.js",
             title: "Standalone",
             filename: "index.html",

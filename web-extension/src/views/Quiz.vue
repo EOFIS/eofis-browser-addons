@@ -1,5 +1,6 @@
 <template>
     <div class="quiz">
+        <span class="remaining">{{cards.length-wrong.length-right.length}}</span> | <span class="wrong">{{wrong.length}}</span> | <span class="right">{{right.length}}</span>
         <div class="card-container" v-if="!finished">
             <div v-for="(card, card_idx) in cards" :key="card_idx" class="card fade" :class="{active: cardIdx == card_idx}">
                 <div class="quiz-header">
@@ -38,6 +39,8 @@ export default {
             console.log(`REVIEWED CARD ${this.cardIdx} ${reviewScore}`);
             if (0 == reviewScore) {
                 this.wrong.push(this.cards[this.cardIdx]);
+            } else if (1 == reviewScore) {
+                this.right.push(this.cards[this.cardIdx]);
             }
             this.nextCard();
         },
@@ -86,7 +89,7 @@ export default {
      */
     mounted () {
         //this.retrieveNotes();
-        this.retrieveLowestRecallCards(4);
+        this.retrieveLowestRecallCards(20);
     },
     data () {
         return {
@@ -95,6 +98,7 @@ export default {
             flipped : false, // is the current card flipped. 
             finished : false,
             wrong : [], // To store all the cards that were guessed wrong
+            right : [], // " right
             notes : [],
             cards : []
         }
@@ -165,5 +169,18 @@ export default {
 @keyframes fade {
     from { opacity: 0.4 }
     to   { opacity: 1   }
+}
+
+.right, .wrong, .remaining {
+    font-weight: bold;
+}
+.right {
+    color: green;
+}
+.wrong {
+    color: red;
+}
+.remaining {
+    color: blue;
 }
 </style>
