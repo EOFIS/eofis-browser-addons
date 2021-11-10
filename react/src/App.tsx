@@ -9,7 +9,7 @@ import ProtectedRoute from './ProtectedRoute';
 import Home from "./Home";
 import Splash from "./Splash";
 
-const App = () => {
+const App = (props: {}) => {
   const [loadingApp, setLoadingApp] = useState(true);
   const [loggedIn, setLoggedIn] = useState(false);
   // Check for a user token when app initialises.

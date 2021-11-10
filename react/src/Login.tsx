@@ -20,6 +20,7 @@ const Login = (props: RouteComponentProps) => {
 
     const submitLogin = (event : SyntheticEvent) => {
         event.preventDefault();
+        console.log(`SUBMITTING FORM`);
 
         api.post<AuthRequest>("/auth/", {email: email, password: password})
         .then((response: AxiosResponse<AuthRequest>) => {

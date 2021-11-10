@@ -13,21 +13,22 @@ class CardDataService {
         return NoteDataService.getAll()
             .then(response => {
                 let notes = response.data.filter(note => note.cards != undefined);
-                notes.forEach( n => {
-                    n.cards.forEach( c => {
+                notes.forEach(n => {
+                    n.cards.forEach(c => {
                         c.tags = n.tags;
                         c.source = n.source;
-                    })});
+                    })
+                });
                 let cards = notes.map((note) => note.cards).flat(1);
                 //console.log(notes);
                 console.log(cards);
                 //let cardsAugmented = ( notes.map((note) => note.cards.forEach( card => card.tags = note.tags ).forEach( card => card.source = note.source ))).flat(1).filter('Object');
                 //console.log(cardsAugmented);
-                let cardsSorted = cards.sort( (a, b) => {
+                let cardsSorted = cards.sort((a, b) => {
                     let now = Date.now();
                     return cardRecall(a, now) - cardRecall(b, now);
                 });
-                return cardsSorted.slice(0,amount);
+                return cardsSorted.slice(0, amount);
             })
             .catch(e => {
                 console.log(e);
@@ -35,12 +36,11 @@ class CardDataService {
     }
     getAll() {
         return NoteDataService.getAll()
-            .then( response => {
+            .then(response => {
                 let notes = response.data;
-                let cards = (notes.map((note) => 'cards' in note ? note.cards : [])).flat(1).filter( Object );
+                let cards = (notes.map((note) => 'cards' in note ? note.cards : [])).flat(1).filter(Object);
                 return cards;
             });
-
     }
     /*
     get(id) {
@@ -56,5 +56,5 @@ class CardDataService {
         //return http.delete(`/notes/${id}`);
     }
     */
-    }
+}
 export default new CardDataService();
