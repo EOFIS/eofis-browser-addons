@@ -1,7 +1,7 @@
 <template>
 	<div class="field is-grouped is-grouped-multiline">
 		<Tag :tag="source"/>
-		<Tag v-for="tag in tags" :key="tag.id" :tag="tag"/>
+		<Tag v-for="tag in tags" :key="tag.id" :tag="tag" :editable="editable"/>
 	<div class="control">
 		<input id="newTag" class="tag" v-if="editable===true" type="text" list="allTags" name="newTag" @keyup="validateNewTag" v-model="this.newTag"/>
 	</div>

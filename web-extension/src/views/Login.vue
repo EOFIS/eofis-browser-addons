@@ -12,7 +12,7 @@
 				</div>
 				<button type="submit">Submit</button>
 			</form>
-			<p v-if="showError" id="error">Email or password is incorrect.</p>
+            <p v-if="clientError" id="error">Email or password is incorrect. {{clientError}}</p>
 		</div>
 	</div>
 </template>
@@ -28,7 +28,7 @@ export default {
 				email: "",
 				password: "",
 			},
-			showError: false
+			clientError: ""
 		};
 	},
 	methods: {
@@ -40,9 +40,10 @@ export default {
 			try {
 				await this.login(User);
 				this.$router.push("/notes");
-				this.showError = false
+				this.clientError = "";
 			} catch (error) {
-				this.showError = true
+                console.log(error);
+				this.clientError = error;
 			}
 		},
 	},

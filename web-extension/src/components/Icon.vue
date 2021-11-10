@@ -1,15 +1,19 @@
 <template>
     <span class="icon-text">
         <span class="icon">
-            <fa-icon :icon="this.icon" :color="this.color"/>
+            <FontAwesomeIcon :icon="this.icon" :color="this.color"/>
         </span>
         <span v-if="this.text" >{{this.text}}</span>
     </span>
 </template>
 
 <script>
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 export default {
     name: "Icon",
+    components: {
+        FontAwesomeIcon
+    },
     props: {
         icon: {
             type: [Object, Array, String],

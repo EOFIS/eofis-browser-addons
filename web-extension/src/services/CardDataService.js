@@ -36,9 +36,9 @@ class CardDataService {
     }
     getAll() {
         return NoteDataService.getAll()
-            .then(response => {
+            .then( response => {
                 let notes = response.data;
-                let cards = (notes.map((note) => 'cards' in note ? note.cards : [])).flat(1).filter(Object);
+                let cards = (notes.map((note) => 'cards' in note ? note.cards : [])).flat(1).filter( Object );
                 return cards;
             });
     }
@@ -56,5 +56,5 @@ class CardDataService {
         //return http.delete(`/notes/${id}`);
     }
     */
-}
+    }
 export default new CardDataService();

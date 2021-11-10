@@ -1,5 +1,6 @@
 import Vue from "vue";
 import App from "./App.vue";
+import store from "@/store";
 import router from "../router";
 
 import VSCrumbs from "@/components/VSCrumbs.vue";
@@ -16,7 +17,22 @@ Vue.component('vs-crumbs', VSCrumbs);
 /* eslint-disable no-new */
 new Vue({
     router: router,
+    store: store,
     el: "#app",
     render: (h) => h(App),
 });
 router.push({ path: '/' });
+
+browser.runtime.onMessage.addListener((message, sender, response) => {
+    console.log(`POPUP MAIN: ${message}, ${sender}, ${response}`);
+    return new Promise((resolve, reject) => {
+        console.log(`POPUP MAIN MESSAGE RESPONSE: ${resolve}, ${reject}`);
+        alert("POPUP CONTENT SCRIPT");
+        setTimeout(() => {
+            resolve('TURNIP');
+        }, 300);
+    });
+});
+
+let EOFISNote = browser.extension.getBackgroundPage().EOFISNote;
+export { EOFISNote };
